@@ -8,7 +8,7 @@ from typing import Dict, List
 import httpx
 from tenacity import retry, stop_after_attempt, wait_fixed
 
-import config
+from config import base_config
 from proxy.providers import new_jisu_http_proxy, new_kuai_daili_proxy
 from tools import utils
 
@@ -45,7 +45,8 @@ class ProxyIpPool:
         :param proxy:
         :return:
         """
-        utils.logger.info(f"[ProxyIpPool._is_valid_proxy] testing {proxy.ip} is it valid ")
+        utils.logger.info(
+            f"[ProxyIpPool._is_valid_proxy] testing {proxy.ip} is it valid ")
         try:
             httpx_proxy = {
                 f"{proxy.protocol}": f"http://{proxy.user}:{proxy.password}@{proxy.ip}:{proxy.port}"
@@ -57,7 +58,8 @@ class ProxyIpPool:
             else:
                 return False
         except Exception as e:
-            utils.logger.info(f"[ProxyIpPool._is_valid_proxy] testing {proxy.ip} err: {e}")
+            utils.logger.info(
+                f"[ProxyIpPool._is_valid_proxy] testing {proxy.ip} err: {e}")
             raise e
 
     @retry(stop=stop_after_attempt(3), wait=wait_fixed(1))
@@ -70,10 +72,11 @@ class ProxyIpPool:
             await self._reload_proxies()
 
         proxy = random.choice(self.proxy_list)
-        self.proxy_list.remove(proxy) # 取出来一个IP就应该移出掉
+        self.proxy_list.remove(proxy)  # 取出来一个IP就应该移出掉
         if self.enable_validate_ip:
             if not await self._is_valid_proxy(proxy):
-                raise Exception("[ProxyIpPool.get_proxy] current ip invalid and again get it")
+                raise Exception(
+                    "[ProxyIpPool.get_proxy] current ip invalid and again get it")
         return proxy
 
     async def _reload_proxies(self):
@@ -100,7 +103,8 @@ async def create_ip_pool(ip_pool_count: int, enable_validate_ip: bool) -> ProxyI
     """
     pool = ProxyIpPool(ip_pool_count=ip_pool_count,
                        enable_validate_ip=enable_validate_ip,
-                       ip_provider=IpProxyProvider.get(config.IP_PROXY_PROVIDER_NAME)
+                       ip_provider=IpProxyProvider.get(
+                           base_config.get_ip_proxy_provider_name())
                        )
     await pool.load_proxies()
     return pool

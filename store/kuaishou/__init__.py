@@ -18,7 +18,8 @@ class KuaishouStoreFactory:
 
     @staticmethod
     def create_store() -> AbstractStore:
-        store_class = KuaishouStoreFactory.STORES.get(config.SAVE_DATA_OPTION)
+        store_class = KuaishouStoreFactory.STORES.get(
+            base_config.get_save_data_option())
         if not store_class:
             raise ValueError(
                 "[KuaishouStoreFactory.create_store] Invalid save option only supported csv or db or json ...")
@@ -53,7 +54,8 @@ async def update_kuaishou_video(video_item: Dict):
 
 
 async def batch_update_ks_video_comments(video_id: str, comments: List[Dict]):
-    utils.logger.info(f"[store.kuaishou.batch_update_ks_video_comments] video_id:{video_id}, comments:{comments}")
+    utils.logger.info(
+        f"[store.kuaishou.batch_update_ks_video_comments] video_id:{video_id}, comments:{comments}")
     if not comments:
         return
     for comment_item in comments:

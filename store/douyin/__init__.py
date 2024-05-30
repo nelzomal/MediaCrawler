@@ -18,7 +18,8 @@ class DouyinStoreFactory:
 
     @staticmethod
     def create_store() -> AbstractStore:
-        store_class = DouyinStoreFactory.STORES.get(config.SAVE_DATA_OPTION)
+        store_class = DouyinStoreFactory.STORES.get(
+            base_config.get_save_data_option())
         if not store_class:
             raise ValueError(
                 "[DouyinStoreFactory.create_store] Invalid save option only supported csv or db or json ...")

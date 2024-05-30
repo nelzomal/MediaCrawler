@@ -143,7 +143,8 @@ class XiaoHongShuClient(AbstractApiClient):
             if note_card.get("items"):
                 ping_flag = True
         except Exception as e:
-            utils.logger.error(f"[XiaoHongShuClient.pong] Ping xhs failed: {e}, and try to login again...")
+            utils.logger.error(
+                f"[XiaoHongShuClient.pong] Ping xhs failed: {e}, and try to login again...")
             ping_flag = False
         return ping_flag
 
@@ -204,7 +205,8 @@ class XiaoHongShuClient(AbstractApiClient):
         if res and res.get("items"):
             res_dict: Dict = res["items"][0]["note_card"]
             return res_dict
-        utils.logger.error(f"[XiaoHongShuClient.get_note_by_id] get note empty and res:{res}")
+        utils.logger.error(
+            f"[XiaoHongShuClient.get_note_by_id] get note empty and res:{res}")
         return dict()
 
     async def get_note_comments(self, note_id: str, cursor: str = "") -> Dict:
@@ -278,9 +280,9 @@ class XiaoHongShuClient(AbstractApiClient):
             sub_comments = await self.get_comments_all_sub_comments(comments, crawl_interval, callback)
             result.extend(sub_comments)
         return result
-    
+
     async def get_comments_all_sub_comments(self, comments: List[Dict], crawl_interval: float = 1.0,
-                                    callback: Optional[Callable] = None) -> List[Dict]:
+                                            callback: Optional[Callable] = None) -> List[Dict]:
         """
         获取指定一级评论下的所有二级评论, 该方法会一直查找一级评论下的所有二级评论信息
         Args:
@@ -289,26 +291,27 @@ class XiaoHongShuClient(AbstractApiClient):
             callback: 一次评论爬取结束后
 
         Returns:
-        
+
         """
-        if not config.ENABLE_GET_SUB_COMMENTS:
-            utils.logger.info(f"[XiaoHongShuCrawler.get_comments_all_sub_comments] Crawling sub_comment mode is not enabled")
+        if not base_config.get_enable_get_sub_comments():
+            utils.logger.info(
+                f"[XiaoHongShuCrawler.get_comments_all_sub_comments] Crawling sub_comment mode is not enabled")
             return []
-        
+
         result = []
         for comment in comments:
             note_id = comment.get("note_id")
             sub_comments = comment.get("sub_comments")
             if sub_comments and callback:
                 await callback(note_id, sub_comments)
-                
+
             sub_comment_has_more = comment.get("sub_comment_has_more")
             if not sub_comment_has_more:
                 continue
 
             root_comment_id = comment.get("id")
             sub_comment_cursor = comment.get("sub_comment_cursor")
-        
+
             while sub_comment_has_more:
                 comments_res = await self.get_note_sub_comments(note_id, root_comment_id, 10, sub_comment_cursor)
                 sub_comment_has_more = comments_res.get("has_more", False)
@@ -332,12 +335,14 @@ class XiaoHongShuClient(AbstractApiClient):
         """
         uri = f"/user/profile/{user_id}"
         html_content = await self.request("GET", self._domain + uri, return_response=True, headers=self.headers)
-        match = re.search(r'<script>window.__INITIAL_STATE__=(.+)<\/script>', html_content, re.M)
+        match = re.search(
+            r'<script>window.__INITIAL_STATE__=(.+)<\/script>', html_content, re.M)
 
         if match is None:
             return {}
 
-        info = json.loads(match.group(1).replace(':undefined', ':null'), strict=False)
+        info = json.loads(match.group(1).replace(
+            ':undefined', ':null'), strict=False)
         if info is None:
             return {}
         return info.get('user').get('userPageData')
@@ -384,17 +389,20 @@ class XiaoHongShuClient(AbstractApiClient):
         while notes_has_more:
             notes_res = await self.get_notes_by_creator(user_id, notes_cursor)
             if not notes_res:
-                utils.logger.error(f"[XiaoHongShuClient.get_notes_by_creator] The current creator may have been banned by xhs, so they cannot access the data.")
+                utils.logger.error(
+                    f"[XiaoHongShuClient.get_notes_by_creator] The current creator may have been banned by xhs, so they cannot access the data.")
                 break
 
             notes_has_more = notes_res.get("has_more", False)
             notes_cursor = notes_res.get("cursor", "")
             if "notes" not in notes_res:
-                utils.logger.info(f"[XiaoHongShuClient.get_all_notes_by_creator] No 'notes' key found in response: {notes_res}")
+                utils.logger.info(
+                    f"[XiaoHongShuClient.get_all_notes_by_creator] No 'notes' key found in response: {notes_res}")
                 break
 
             notes = notes_res["notes"]
-            utils.logger.info(f"[XiaoHongShuClient.get_all_notes_by_creator] got user_id:{user_id} notes len : {len(notes)}")
+            utils.logger.info(
+                f"[XiaoHongShuClient.get_all_notes_by_creator] got user_id:{user_id} notes len : {len(notes)}")
             if callback:
                 await callback(notes)
             await asyncio.sleep(crawl_interval)

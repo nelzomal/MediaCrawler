@@ -23,7 +23,7 @@ CREATE TABLE `bilibili_video` (
   PRIMARY KEY (`id`),
   KEY `idx_bilibili_vi_video_i_31c36e` (`video_id`),
   KEY `idx_bilibili_vi_create__73e0ec` (`create_time`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='B站视频';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci COMMENT='B站视频';
 
 -- ----------------------------
 -- Table structure for bilibili_video_comment
@@ -44,7 +44,7 @@ CREATE TABLE `bilibili_video_comment` (
   PRIMARY KEY (`id`),
   KEY `idx_bilibili_vi_comment_41c34e` (`comment_id`),
   KEY `idx_bilibili_vi_video_i_f22873` (`video_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='B 站视频评论';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci COMMENT='B 站视频评论';
 
 -- ----------------------------
 -- Table structure for douyin_aweme
@@ -75,7 +75,7 @@ CREATE TABLE `douyin_aweme` (
   PRIMARY KEY (`id`),
   KEY `idx_douyin_awem_aweme_i_6f7bc6` (`aweme_id`),
   KEY `idx_douyin_awem_create__299dfe` (`create_time`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='抖音视频';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci COMMENT='抖音视频';
 
 -- ----------------------------
 -- Table structure for douyin_aweme_comment
@@ -101,7 +101,7 @@ CREATE TABLE `douyin_aweme_comment` (
   PRIMARY KEY (`id`),
   KEY `idx_douyin_awem_comment_fcd7e4` (`comment_id`),
   KEY `idx_douyin_awem_aweme_i_c50049` (`aweme_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='抖音视频评论';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci COMMENT='抖音视频评论';
 
 -- ----------------------------
 -- Table structure for kuaishou_video
@@ -127,7 +127,7 @@ CREATE TABLE `kuaishou_video` (
   PRIMARY KEY (`id`),
   KEY `idx_kuaishou_vi_video_i_c5c6a6` (`video_id`),
   KEY `idx_kuaishou_vi_create__a10dee` (`create_time`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='快手视频';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci COMMENT='快手视频';
 
 -- ----------------------------
 -- Table structure for kuaishou_video_comment
@@ -148,7 +148,7 @@ CREATE TABLE `kuaishou_video_comment` (
   PRIMARY KEY (`id`),
   KEY `idx_kuaishou_vi_comment_ed48fa` (`comment_id`),
   KEY `idx_kuaishou_vi_video_i_e50914` (`video_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='快手视频评论';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci COMMENT='快手视频评论';
 
 
 -- ----------------------------
@@ -177,7 +177,7 @@ CREATE TABLE `weibo_note` (
   KEY `idx_weibo_note_note_id_f95b1a` (`note_id`),
   KEY `idx_weibo_note_create__692709` (`create_time`),
   KEY `idx_weibo_note_create__d05ed2` (`create_date_time`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='微博帖子';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci COMMENT='微博帖子';
 
 -- ----------------------------
 -- Table structure for weibo_note_comment
@@ -204,7 +204,7 @@ CREATE TABLE `weibo_note_comment` (
   KEY `idx_weibo_note__comment_c7611c` (`comment_id`),
   KEY `idx_weibo_note__note_id_24f108` (`note_id`),
   KEY `idx_weibo_note__create__667fe3` (`create_date_time`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='微博帖子评论';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci COMMENT='微博帖子评论';
 
 -- ----------------------------
 -- Table structure for xhs_creator
@@ -225,7 +225,7 @@ CREATE TABLE `xhs_creator` (
   `interaction` varchar(16) DEFAULT NULL COMMENT '获赞和收藏数',
   `tag_list` longtext COMMENT '标签列表',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='小红书博主';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci COMMENT='小红书博主';
 
 -- ----------------------------
 -- Table structure for xhs_note
@@ -256,7 +256,7 @@ CREATE TABLE `xhs_note` (
   PRIMARY KEY (`id`),
   KEY `idx_xhs_note_note_id_209457` (`note_id`),
   KEY `idx_xhs_note_time_eaa910` (`time`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='小红书笔记';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci COMMENT='小红书笔记';
 
 -- ----------------------------
 -- Table structure for xhs_note_comment
@@ -279,7 +279,7 @@ CREATE TABLE `xhs_note_comment` (
   PRIMARY KEY (`id`),
   KEY `idx_xhs_note_co_comment_8e8349` (`comment_id`),
   KEY `idx_xhs_note_co_create__204f8d` (`create_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='小红书笔记评论';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci COMMENT='小红书笔记评论';
 
 -- ----------------------------
 -- alter table xhs_note_comment to support parent_comment_id
@@ -287,5 +287,10 @@ CREATE TABLE `xhs_note_comment` (
 ALTER TABLE `xhs_note_comment`
 ADD COLUMN `parent_comment_id` VARCHAR(64) DEFAULT NULL COMMENT '父评论ID';
 
+-- ----------------------------
+-- alter table bilibili_video_comment to support parent_comment_id
+-- ----------------------------
+ALTER TABLE `bilibili_video_comment`
+ADD COLUMN `parent_comment_id` VARCHAR(64) DEFAULT NULL COMMENT '父评论ID';
 
 SET FOREIGN_KEY_CHECKS = 1;

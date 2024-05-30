@@ -20,7 +20,8 @@ class WeibostoreFactory:
 
     @staticmethod
     def create_store() -> AbstractStore:
-        store_class = WeibostoreFactory.STORES.get(config.SAVE_DATA_OPTION)
+        store_class = WeibostoreFactory.STORES.get(
+            base_config.get_save_data_option())
         if not store_class:
             raise ValueError(
                 "[WeibotoreFactory.create_store] Invalid save option only supported csv or db or json ...")
@@ -87,6 +88,7 @@ async def update_weibo_note_comment(note_id: str, comment_item: Dict):
     utils.logger.info(
         f"[store.weibo.update_weibo_note_comment] Weibo note comment: {comment_id}, content: {save_comment_item.get('content', '')[:24]} ...")
     await WeibostoreFactory.create_store().store_comment(comment_item=save_comment_item)
+
 
 async def update_weibo_note_image(picid: str, pic_content, extension_file_name):
     await WeiboStoreImage().store_image({"pic_id": picid, "pic_content": pic_content, "extension_file_name": extension_file_name})
